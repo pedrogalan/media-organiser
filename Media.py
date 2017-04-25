@@ -7,9 +7,9 @@ import ntpath
 
 class Media:
 
-    def __init__(self, sourcePath):
+    def __init__(self, sourceFile):
         self.counter = 0
-        self.sourcePath = sourcePath
+        self.sourceFile = sourceFile
         self.filename = self.__getFileName()
         self.fileext = self.__getFileExtension()
         self.createDate = self.__getDateFromMetaInfo()
@@ -22,7 +22,7 @@ class Media:
         return self.createDate.toFileName() + "_" + str(counter).zfill(3) + "." + self.fileext
 
     def toString(self):
-        return "Source path: " + self.sourcePath + \
+        return "Source path: " + self.sourceFile + \
                "\nCurrent filename: " + self.filename + \
                "\nProposed filename: " + self.getNextNewFileName()
 
@@ -36,7 +36,7 @@ class Media:
         return MediaDate(date)
 
     def __getMetaInformation(self):
-        result = Popen(["exiftool", "-s", self.sourcePath], stdout=PIPE)
+        result = Popen(["exiftool", "-s", self.sourceFile], stdout=PIPE)
         return result.stdout.read()
 
     def __getCreateDate(self, metainfo):
@@ -51,7 +51,7 @@ class Media:
                 return line.split(": ")[-1];
 
     def __getFileName(self):
-        return ntpath.basename(self.sourcePath)
+        return ntpath.basename(self.sourceFile)
 
     def __getFileExtension(self):
         return self.filename.split(".")[-1]
