@@ -11,7 +11,7 @@ class Media:
         self.counter = 0
         self.sourceFile = sourceFile
         self.filename = self.__getFileName()
-        self.fileext = self.__getFileExtension()
+        self.fileext = self.__extractFileExtension()
         self.createDate = self.__getDateFromMetaInfo()
 
     def getNextNewFileName(self):
@@ -19,7 +19,7 @@ class Media:
         return self.getNewFileName(self.counter)
 
     def getNewFileName(self, counter):
-        return self.createDate.toFileName() + "_" + str(counter).zfill(3) + "." + self.fileext
+        return self.createDate.toFileName() + "_" + str(counter).zfill(3) + self.__getFileExtension()
 
     def toString(self):
         return "Source path: " + self.sourceFile + \
@@ -53,5 +53,14 @@ class Media:
     def __getFileName(self):
         return ntpath.basename(self.sourceFile)
 
+    def __extractFileExtension(self):
+        if "." in self.filename:
+            return self.filename.split(".")[-1]
+        else:
+            return ""
+
     def __getFileExtension(self):
-        return self.filename.split(".")[-1]
+        if "" is self.fileext:
+            return self.fileext
+        else:
+            return "." + self.fileext
