@@ -17,12 +17,13 @@ class Runner:
             self.__rename(file)
 
     def __getMaxNumberOfFilesToRename(self, args):
-        if (len(args) == 4):
-            return args[3]
-        else:
+        try:
+            return int(args[3])
+        except:
             return 1000
 
     def __filesToRename(self):
+        # Change this to be able to get the list of files recursively
         return glob(join(self.sourcePath, "*"))
 
     def __checkFilesRenamed(self):

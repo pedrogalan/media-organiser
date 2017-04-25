@@ -21,11 +21,6 @@ class Media:
     def getNewFileName(self, counter):
         return self.createDate.toFileName() + "_" + str(counter).zfill(3) + self.__getFileExtension()
 
-    def toString(self):
-        return "Source path: " + self.sourceFile + \
-               "\nCurrent filename: " + self.filename + \
-               "\nProposed filename: " + self.getNextNewFileName()
-
     def __getDateFromMetaInfo(self):
         metainfo = self.__getMetaInformation()
 
