@@ -6,7 +6,6 @@ from re import compile
 class Media:
 
     def __init__(self, sourcePath):
-        self.CREATE_DATE = compile("^CreateDate.*")
         self.sourcePath = sourcePath
         self.createDate = self.__getDateFromMetaInfo()
 
@@ -14,14 +13,26 @@ class Media:
         return "Source path: " + self.sourcePath + "\nProposed filename: " + self.createDate.toFileName()
 
     def __getDateFromMetaInfo(self):
-        return MediaDate(self.__getCreateDate())
+        metainfo = self.__getMetaInformation()
 
-    def __getCreateDate(self):
-        metainf = self.__getMetaInformation().splitlines()
-        for line in metainf:
-            if self.CREATE_DATE.match(line):
-                return line.split(": ")[-1];
+        date = self.__getCreateDate(metainfo)
+        if date is None:
+            date = self.__getFileModificationDate(metainfo)
+            
+        return MediaDate(date)
 
     def __getMetaInformation(self):
         result = Popen(["exiftool", "-s", self.sourcePath], stdout=PIPE)
         return result.stdout.read()
+
+    def __getCreateDate(self, metainfo):
+        return self.__getDate(metainfo, compile("^CreateDate.*"))
+
+    def __getFileModificationDate(self, metainfo):
+        print metainfo
+        return self.__getDate(metainfo, compile("^FileModifyDate.*"))
+
+    def __getDate(self, metainfo, fieldname):
+        for line in metainfo.splitlines():
+            if fieldname.match(line):
+                return line.split(": ")[-1];
