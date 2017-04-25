@@ -6,7 +6,7 @@ class MediaDate:
         self.date = parse(self.__normaliseStringDate(stringDate))
 
     def toFileName(self):
-        return self.date.strftime('%Y-%m-%d_%H%M%S')
+        return self.date.strftime('%Y-%m-%d_%H.%M.%S')
 
     def __normaliseStringDate(self, stringDate):
         if self.__hasTime(stringDate):
