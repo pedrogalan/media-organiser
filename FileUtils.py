@@ -25,10 +25,18 @@ class FileUtils:
 
     @staticmethod
     def __getDestinationFilename(destinationPath, media):
-        destinationFile = join(destinationPath, media.getNextNewFileName())
+        fullDestinationPath = join(destinationPath, FileUtils.__getDestinationSubdirectory(media))
+        destinationFile = join(fullDestinationPath, media.getNextNewFileName())
         while isfile(destinationFile):
             destinationFile = join(destinationPath, media.getNextNewFileName())
         return destinationFile
 
-    def __normalisePath(path):
-        return path.strip("/")
+    @staticmethod
+    def __getDestinationSubdirectory(media):
+        print media.type
+        if media.isPicture():
+            return "Pictures"
+        elif media.isVideo():
+            return "Videos"
+        else:
+            return "Unknown"

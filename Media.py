@@ -23,8 +23,18 @@ class Media:
     def getNewFileName(self, counter):
         return self.createDate.toFileName() + "_" + str(counter).zfill(3) + self.__getFileExtension()
 
+    def isPicture(self):
+        return self.type == "image"
+
+    def isVideo(self):
+        return self.type == "video"
+
     def __extractMimeTypeFromMetaInfo(self):
-        print self.__getDate(self.metainfo, compile("^MIMEType.*"))
+        mimeType = self.__getMetainfoValue(self.metainfo, compile("^MIMEType.*"))
+        if mimeType is None:
+            return "unknown"
+        else:
+            return mimeType.split("/")[0]
 
     def __getDateFromMetaInfo(self):
         date = self.__getCreateDate(self.metainfo)
@@ -38,12 +48,12 @@ class Media:
         return result.stdout.read()
 
     def __getCreateDate(self, metainfo):
-        return self.__getDate(metainfo, compile("^CreateDate.*"))
+        return self.__getMetainfoValue(metainfo, compile("^CreateDate.*"))
 
     def __getFileModificationDate(self, metainfo):
-        return self.__getDate(metainfo, compile("^FileModifyDate.*"))
+        return self.__getMetainfoValue(metainfo, compile("^FileModifyDate.*"))
 
-    def __getDate(self, metainfo, fieldname):
+    def __getMetainfoValue(self, metainfo, fieldname):
         for line in metainfo.splitlines():
             if fieldname.match(line):
                 return line.split(": ")[-1];
