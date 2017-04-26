@@ -4,28 +4,22 @@ from glob import glob
 from os.path import join
 
 class Runner:
+    MAX_NUMBER_OF_FILES_TO_RENAME = 1000
 
     def __init__(self, args):
         self.sourcePath = args[1]
         self.destinationPath = args[2]
-        self.numberOfFilesRenamed = 0
         self.numberOfFilesToRename = self.__getMaxNumberOfFilesToRename(args)
 
     def run(self):
-        for file in FileUtils.findFilesRecursivelly(self.sourcePath):
-            self.__checkNumberOfFilesRenamed()
+        for file in FileUtils.findFilesRecursivelly(self.sourcePath, self.numberOfFilesToRename):
             self.__rename(file)
 
     def __getMaxNumberOfFilesToRename(self, args):
         try:
             return int(args[3])
         except:
-            return 1000
-
-    def __checkNumberOfFilesRenamed(self):
-        if (self.numberOfFilesRenamed == self.numberOfFilesToRename):
-            exit(0)
-        self.numberOfFilesRenamed = self.numberOfFilesRenamed + 1
+            return Runner.MAX_NUMBER_OF_FILES_TO_RENAME
 
     def __rename(self, file):
         media = Media(file)
