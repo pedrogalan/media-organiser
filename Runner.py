@@ -23,4 +23,4 @@ class Runner:
 
     def __rename(self, file):
         media = Media(file)
-        FileUtils.mv(media, self.destinationPath)
+        FileUtils.cp(media, self.destinationPath)

@@ -62,8 +62,9 @@ class Media:
         return ntpath.basename(self.sourceFile)
 
     def __extractFileExtension(self):
+        # TODO Extract the extension from the metainfo
         if "." in self.filename:
-            return self.filename.split(".")[-1]
+            return self.filename.split(".")[-1].lower()
         else:
             return ""
 

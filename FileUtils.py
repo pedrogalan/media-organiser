@@ -40,12 +40,11 @@ class FileUtils:
         fullDestinationPath = join(destinationPath, FileUtils.__getDestinationSubdirectory(media))
         destinationFile = join(fullDestinationPath, media.getNextNewFileName())
         while isfile(destinationFile):
-            destinationFile = join(destinationPath, media.getNextNewFileName())
+            destinationFile = join(fullDestinationPath, media.getNextNewFileName())
         return destinationFile
 
     @staticmethod
     def __getDestinationSubdirectory(media):
-        print media.type
         if media.isPicture():
             return "Pictures"
         elif media.isVideo():
