@@ -10,9 +10,11 @@ class Media:
     def __init__(self, sourceFile):
         self.counter = 0
         self.sourceFile = sourceFile
+        self.metainfo = self.__getMetaInformation()
         self.filename = self.__getFileName()
         self.fileext = self.__extractFileExtension()
         self.createDate = self.__getDateFromMetaInfo()
+        self.type = self.__extractMimeTypeFromMetaInfo()
 
     def getNextNewFileName(self):
         self.counter = self.counter + 1
@@ -21,12 +23,13 @@ class Media:
     def getNewFileName(self, counter):
         return self.createDate.toFileName() + "_" + str(counter).zfill(3) + self.__getFileExtension()
 
-    def __getDateFromMetaInfo(self):
-        metainfo = self.__getMetaInformation()
+    def __extractMimeTypeFromMetaInfo(self):
+        print self.__getDate(self.metainfo, compile("^MIMEType.*"))
 
-        date = self.__getCreateDate(metainfo)
+    def __getDateFromMetaInfo(self):
+        date = self.__getCreateDate(self.metainfo)
         if date is None:
-            date = self.__getFileModificationDate(metainfo)
+            date = self.__getFileModificationDate(self.metainfo)
 
         return MediaDate(date)
 
