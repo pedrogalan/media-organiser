@@ -8,12 +8,12 @@ class Runner:
     def __init__(self, args):
         self.sourcePath = args[1]
         self.destinationPath = args[2]
-        self.filesRenamed = 0
-        self.filesToRename = self.__getMaxNumberOfFilesToRename(args)
+        self.numberOfFilesRenamed = 0
+        self.numberOfFilesToRename = self.__getMaxNumberOfFilesToRename(args)
 
     def run(self):
-        for file in self.__filesToRename():
-            self.__checkFilesRenamed()
+        for file in FileUtils.findFilesRecursivelly(self.sourcePath):
+            self.__checkNumberOfFilesRenamed()
             self.__rename(file)
 
     def __getMaxNumberOfFilesToRename(self, args):
@@ -22,14 +22,10 @@ class Runner:
         except:
             return 1000
 
-    def __filesToRename(self):
-        # Change this to be able to get the list of files recursively
-        return glob(join(self.sourcePath, "*"))
-
-    def __checkFilesRenamed(self):
-        if (self.filesRenamed == self.filesToRename):
+    def __checkNumberOfFilesRenamed(self):
+        if (self.numberOfFilesRenamed == self.numberOfFilesToRename):
             exit(0)
-        self.filesRenamed = self.filesRenamed + 1
+        self.numberOfFilesRenamed = self.numberOfFilesRenamed + 1
 
     def __rename(self, file):
         media = Media(file)

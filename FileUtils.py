@@ -1,9 +1,19 @@
+from fnmatch import filter
 from os.path import isfile
 from os.path import join
+from os import walk
 from shutil import copyfile
 from shutil import move
 
 class FileUtils:
+
+    @staticmethod
+    def findFilesRecursivelly(sourcePath):
+        matches = []
+        for root, dirnames, filenames in walk(sourcePath):
+            for filename in filter(filenames, '*'):
+                matches.append(join(root, filename))
+        return matches
 
     @staticmethod
     def cp(media, destinationPath):
