@@ -1,3 +1,4 @@
+import logging
 from fnmatch import filter
 from os.path import isfile
 from os.path import join
@@ -20,20 +21,12 @@ class FileUtils:
     @staticmethod
     def cp(media, destinationPath):
         destinationFile = FileUtils.__getDestinationFilename(destinationPath, media)
-        print "Copying " + media.sourceFile + " to " + destinationFile
-        try:
-            copyfile(media.sourceFile, destinationFile)
-        except IOError, e:
-            print "Error copying file." + e.errno
+        copyfile(media.sourceFile, destinationFile)
 
     @staticmethod
     def mv(media, destinationPath):
         destinationFile = FileUtils.__getDestinationFilename(destinationPath, media)
-        print "Moving " + media.sourceFile + " to " + destinationFile
-        try:
-            move(media.sourceFile, destinationFile)
-        except IOError, e:
-            print "Error moving file: " + str(e)
+        move(media.sourceFile, destinationFile)
 
     @staticmethod
     def __getDestinationFilename(destinationPath, media):

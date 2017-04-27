@@ -1,3 +1,4 @@
+import logging
 from Media import Media
 from FileUtils import FileUtils
 from glob import glob
@@ -13,7 +14,10 @@ class Runner:
 
     def run(self):
         for file in FileUtils.findFilesRecursivelly(self.sourcePath, self.numberOfFilesToRename):
-            self.__rename(file)
+            try:
+                self.__rename(file)
+            except:
+                logging.error("Error renaming %s.", str(file), exc_info=True)
 
     def __getMaxNumberOfFilesToRename(self, args):
         try:
