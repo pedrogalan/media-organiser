@@ -1,21 +1,32 @@
+import Config
 import smtplib
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
 
 class MailLog:
 
     @staticmethod
     def sendLog():
-       sender = 'pedro.calibre@gmx.com'
-       receivers = ['lacimadelmundo@gmail.com']
+        message = MailLog.__buildMessage()
+        server = MailLog.__configureServer()
+        server.sendmail(Config.mail_sender, Config.mail_receiver, message)
+        server.quit()
 
-       msg = MIMEMultipart()
-       msg['From'] = sender
-       msg['To'] = receivers[0]
-       msg['Subject'] = 'simple email in python'
-       message = 'here is the email'
-       msg.attach(MIMEText(message))
+    @staticmethod
+    def __configureServer():
+       mailserver = smtplib.SMTP(Config.mail_smtp_host)
+       mailserver.login(Config.mail_smtp_username, Config.mail_smtp_password)
+       return mailserver
 
-       mailserver = smtplib.SMTP('mail.gmx.es')
-       mailserver.login('pedro.calibre@gmx.com', 'Th1s1sGmx')
-       mailserver.sendmail(sender, receivers, msg.as_string())
+    @staticmethod
+    def __buildMessage():
+        template = Config.mail_template
+        return template.format(Config.mail_sender, Config.mail_receiver, MailLog.__readLogFile())
+
+    @staticmethod
+    def __readLogFile():
+        try:
+            f = open(Config.log_file_location, 'r')
+            return """\n""" + f.read()
+        except:
+            return """\nLog file cannot be found! Please, review your configuration."""
+
+MailLog.sendLog()
