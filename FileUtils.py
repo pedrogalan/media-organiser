@@ -1,4 +1,3 @@
-import logging
 from fnmatch import filter
 from os.path import isfile
 from os.path import join
