@@ -16,8 +16,12 @@ def loadProperties():
 
 def createDefaultProperties():
     file = open(getConfigFileName(), "w")
-    file.write("[all]\n\n")
-    file.write("log.file.location=/change/me.log")
+    file.write('[all]\n\n')
+    file.write('path.sources=/change/me,/also/change/me\n')
+    file.write('path.destination=/change/me\n')
+    file.write('rename.max.number.of.files=1000\n')
+    file.write('rename.max.number.of.errors=5\n')
+    file.write('log.file.location=/change/me.log')
     file.close()
 
 class Config:
