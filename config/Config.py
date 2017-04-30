@@ -1,12 +1,24 @@
-import logging
 from ConfigParser import ConfigParser
 from os.path import expanduser
 
+def getConfigFileName():
+    return expanduser("~") + '/.media-renamer'
+
 def loadProperties():
-    # TODO Create default configuration file when it's not found
     config = ConfigParser()
-    config.read(expanduser("~") + '/.media-organiser')
+    try:
+        with open(getConfigFileName()) as f:
+            config.readfp(f)
+    except IOError:
+        createDefaultProperties()
+        config.read(getConfigFileName())
     return config
+
+def createDefaultProperties():
+    file = open(getConfigFileName(), "w")
+    file.write("[all]\n\n")
+    file.write("log.file.location=/change/me.log")
+    file.close()
 
 class Config:
     __properties = loadProperties()
@@ -16,4 +28,4 @@ class Config:
         try:
             return Config.__properties.get('all', name)
         except:
-            logging.error("Configuration property %s not found in ~/.media-organiser.", name)
+            logging.error("Configuration property %s not found in %s", name, getConfigFileName())
