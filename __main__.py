@@ -8,8 +8,7 @@ logging.basicConfig(filename=Config.get('log.file.location'),          \
                     format='[%(asctime)s][%(levelname)s] %(message)s', \
                     datefmt='%d/%m/%Y %H:%M:%S')
 
-pathSources = Config.get('path.sources').split(',')
-for pathSource in pathSources:
+for pathSource in Config.get('path.sources').split(','):
     try:
         Renamer(pathSource).run()
     except ValueError as err:
