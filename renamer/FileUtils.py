@@ -8,13 +8,14 @@ from shutil import move
 class FileUtils:
 
     @staticmethod
-    def findFilesRecursivelly(sourcePath, maxNumberOfFiles):
+    def findFilesRecursivelly(sourcePath, extensions, maxNumberOfFiles):
         matches = []
         for root, dirnames, filenames in walk(sourcePath):
-            for filename in filter(filenames, '*'):
-                matches.append(join(root, filename))
-                if len(matches) >= maxNumberOfFiles:
-                    return matches
+            for filename in filenames:
+                if filename.lower().endswith(extensions):
+                    matches.append(join(root, filename))
+                    if len(matches) >= maxNumberOfFiles:
+                        return matches
         return matches
 
     @staticmethod

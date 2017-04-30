@@ -22,7 +22,8 @@ class Renamer:
                 self.__handleError(file)
 
     def __getFilenamesToRename(self):
-        return FileUtils.findFilesRecursivelly(self.sourcePath, Config.get('rename.max.number.of.files'))
+        extensions = tuple(Config.get('path.sources.file.extensions').split(','))
+        return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, Config.get('rename.max.number.of.files'))
 
     def __rename(self, file):
         media = Media(file)
