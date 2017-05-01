@@ -14,6 +14,7 @@ class Media:
         self.filename = self.__getFileName()
         self.fileext = self.__extractFileExtension()
         self.createDate = self.__getDateFromMetaInfo()
+        self.createYear = self.__extractCreateYear()
         self.type = self.__extractMimeTypeFromMetaInfo()
 
     def getNextNewFileName(self):
@@ -21,13 +22,16 @@ class Media:
         return self.getNewFileName(self.counter)
 
     def getNewFileName(self, counter):
-        return self.createDate.toFileName() + "_" + str(counter).zfill(3) + self.__getFileExtension()
+        return self.createDate.toFileName() + "_" + str(counter).zfill(3) + self.fileext
 
     def isPicture(self):
         return self.type == "image"
 
     def isVideo(self):
         return self.type == "video"
+
+    def getCreateYear(self):
+        return self.createYear
 
     def __extractMimeTypeFromMetaInfo(self):
         mimeType = self.__getMetainfoValue(self.metainfo, compile("^MIMEType.*"))
@@ -68,8 +72,5 @@ class Media:
         else:
             return ""
 
-    def __getFileExtension(self):
-        if "" is self.fileext:
-            return self.fileext
-        else:
-            return "." + self.fileext
+    def __extractCreateYear(self):
+        return self.createDate.getYear()

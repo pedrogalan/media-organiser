@@ -10,6 +10,9 @@ class MediaDate:
     def toFileName(self):
         return self.date.strftime('%Y-%m-%d_%H.%M.%S')
 
+    def getYear(self):
+        return self.date.strftime('%Y')
+
     def __normaliseStringDate(self, stringDate):
         if self.__hasTime(stringDate):
             normalisedDate = stringDate

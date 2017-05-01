@@ -1,7 +1,10 @@
 from fnmatch import filter
 from os.path import isfile
 from os.path import join
+from os.path import exists
+from os.path import dirname
 from os import walk
+from os import makedirs
 from shutil import copyfile
 from shutil import move
 
@@ -21,11 +24,13 @@ class FileUtils:
     @staticmethod
     def cp(media, destinationPath):
         destinationFile = FileUtils.__getDestinationFilename(destinationPath, media)
+        FileUtils.__createDestinationDirectory(destinationFile)
         copyfile(media.sourceFile, destinationFile)
 
     @staticmethod
     def mv(media, destinationPath):
         destinationFile = FileUtils.__getDestinationFilename(destinationPath, media)
+        FileUtils.__createDestinationDirectory(destinationFile)
         move(media.sourceFile, destinationFile)
 
     @staticmethod
@@ -38,9 +43,19 @@ class FileUtils:
 
     @staticmethod
     def __getDestinationSubdirectory(media):
+        subdir = media.getCreateYear()
         if media.isPicture():
-            return "Pictures"
+            return join('Pictures', subdir)
         elif media.isVideo():
-            return "Videos"
+            return join('Videos', subdir)
         else:
-            return "Unknown"
+            return join('Unknown', subdir)
+
+    @staticmethod
+    def __createDestinationDirectory(filename):
+        if not exists(dirname(filename)):
+            try:
+                makedirs(dirname(filename))
+            except OSError as exc:
+                if exc.errno != errno.EEXIST:
+                    raise

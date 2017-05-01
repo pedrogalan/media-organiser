@@ -2,7 +2,7 @@ from ConfigParser import ConfigParser
 from os.path import expanduser
 
 def getConfigFileName():
-    return expanduser("~") + '/.media-renamer'
+    return expanduser("~") + '/.media-organiser'
 
 def loadProperties():
     config = ConfigParser()
@@ -19,7 +19,7 @@ def createDefaultProperties():
     file.write('[all]\n\n')
     file.write('path.sources=/change/me,/also/change/me\n')
     file.write('path.destination=/change/me\n')
-    file.write('path.sources.file.extensions=.jpg,jpeg,mov,3gp,avi')
+    file.write('path.sources.file.extensions=jpg,jpeg,mov,3gp,avi,mkv')
     file.write('rename.max.number.of.files=1000\n')
     file.write('rename.max.number.of.errors=5\n')
     file.write('log.file.location=/change/me.log')

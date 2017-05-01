@@ -1,7 +1,8 @@
-import logging
 import sys
 sys.path.append('../config')
+sys.path.append('../log')
 from config.Config import Config
+from log.Logging import logging
 from Media import Media
 from FileUtils import FileUtils
 from glob import glob
@@ -27,7 +28,7 @@ class Renamer:
 
     def __rename(self, file):
         media = Media(file)
-        FileUtils.mv(media, self.destinationPath)
+        FileUtils.cp(media, self.destinationPath)
 
     def __handleError(self, file):
         self.numberOfErrors = self.numberOfErrors + 1
