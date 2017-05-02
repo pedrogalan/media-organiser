@@ -1,3 +1,4 @@
+from log.Logging import logging
 from ConfigParser import ConfigParser
 from os.path import expanduser
 
@@ -17,11 +18,15 @@ def loadProperties():
 def createDefaultProperties():
     file = open(getConfigFileName(), "w")
     file.write('[all]\n\n')
-    file.write('path.sources=/change/me,/also/change/me\n')
-    file.write('path.destination=/change/me\n')
-    file.write('path.sources.file.extensions=jpg,jpeg,mov,3gp,avi,mkv')
-    file.write('rename.max.number.of.files=1000\n')
-    file.write('rename.max.number.of.errors=5\n')
+    file.write('renamer.path.sources=/change/me,/also/change/me\n')
+    file.write('renamer.path.destination=/change/me\n')
+    file.write('renamer.path.sources.file.extensions=jpg,jpeg,mov,3gp,avi,mkv')
+    file.write('renamer.max.number.of.files=1000\n')
+    file.write('renamer.max.number.of.errors=5\n\n')
+    file.write('shrinker.path.source=/change/me\n')
+    file.write('shrinker.path.destination=/change/me\n')
+    file.write('shrinker.max.number.of.files=1000\n')
+    file.write('shrinker.max.number.of.errors=5\n\n')
     file.write('log.file.location=/change/me.log')
     file.close()
 

@@ -1,11 +1,11 @@
 #!/usr/bin/python
 
 from log.Logging import logging
-from renamer.Renamer import Renamer
+from shrinker.Shrinker import Shrinker
 from config.Config import Config
 
-for pathSource in Config.get('renamer.path.sources').split(','):
+for pathSource in Config.get('shrinker.path.sources').split(','):
     try:
-        Renamer(pathSource).run()
+        Shrinker(pathSource).run()
     except ValueError as err:
         logging.error(str(err))

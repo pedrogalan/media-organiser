@@ -22,23 +22,23 @@ class Media:
         return self.getNewFileName(self.counter)
 
     def getNewFileName(self, counter):
-        return self.createDate.toFileName() + "_" + str(counter).zfill(3) + self.fileext
+        return self.createDate.toFileName() + '_' + str(counter).zfill(3) + '.' + self.fileext
 
     def isPicture(self):
-        return self.type == "image"
+        return self.type == 'image'
 
     def isVideo(self):
-        return self.type == "video"
+        return self.type == 'video'
 
     def getCreateYear(self):
         return self.createYear
 
     def __extractMimeTypeFromMetaInfo(self):
-        mimeType = self.__getMetainfoValue(self.metainfo, compile("^MIMEType.*"))
+        mimeType = self.__getMetainfoValue(self.metainfo, compile('^MIMEType.*'))
         if mimeType is None:
-            return "unknown"
+            return 'unknown'
         else:
-            return mimeType.split("/")[0]
+            return mimeType.split('/')[0]
 
     def __getDateFromMetaInfo(self):
         date = self.__getCreateDate(self.metainfo)
@@ -48,29 +48,29 @@ class Media:
         return MediaDate(date)
 
     def __getMetaInformation(self):
-        result = Popen(["exiftool", "-s", self.sourceFile], stdout=PIPE)
+        result = Popen(['exiftool', '-s', self.sourceFile], stdout=PIPE)
         return result.stdout.read()
 
     def __getCreateDate(self, metainfo):
-        return self.__getMetainfoValue(metainfo, compile("^CreateDate.*"))
+        return self.__getMetainfoValue(metainfo, compile('^CreateDate.*'))
 
     def __getFileModificationDate(self, metainfo):
-        return self.__getMetainfoValue(metainfo, compile("^FileModifyDate.*"))
+        return self.__getMetainfoValue(metainfo, compile('^FileModifyDate.*'))
 
     def __getMetainfoValue(self, metainfo, fieldname):
         for line in metainfo.splitlines():
             if fieldname.match(line):
-                return line.split(": ")[-1];
+                return line.split(': ')[-1];
 
     def __getFileName(self):
         return ntpath.basename(self.sourceFile)
 
     def __extractFileExtension(self):
         # TODO Extract the extension from the metainfo
-        if "." in self.filename:
-            return self.filename.split(".")[-1].lower()
+        if '.' in self.filename:
+            return self.filename.split('.')[-1].lower()
         else:
-            return ""
+            return ''
 
     def __extractCreateYear(self):
         return self.createDate.getYear()
