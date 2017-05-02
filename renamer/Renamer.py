@@ -5,7 +5,7 @@ sys.path.append('../entities')
 sys.path.append('../utils')
 from config.Config import Config
 from log.Logging import logging
-from media.Media import Media
+from entities.Media import Media
 from utils.FileUtils import FileUtils
 from glob import glob
 
