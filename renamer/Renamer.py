@@ -17,22 +17,22 @@ class Renamer:
         self.destinationPath = Config.get('renamer.path.destination')
 
     def run(self):
-        for file in self.__getFilenamesToRename():
+        for filename in self.__getFilenamesToRename():
             try:
-                self.__rename(file)
+                self.__rename(filename)
             except:
-                self.__handleError(file)
+                self.__handleError(filename)
 
     def __getFilenamesToRename(self):
         extensions = tuple(Config.get('renamer.path.sources.file.extensions').split(','))
         return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, Config.get('renamer.max.number.of.files'))
 
-    def __rename(self, file):
-        media = Media(file)
-        FileUtils.cp(media, self.destinationPath)
+    def __rename(self, filename):
+        media = Media(filename)
+        FileUtils.rename(media, self.destinationPath)
 
-    def __handleError(self, file):
+    def __handleError(self, filename):
         self.numberOfErrors = self.numberOfErrors + 1
-        logging.error("Error renaming %s. Error number %s.", str(file), str(self.numberOfErrors), exc_info=True)
+        logging.error("Error renaming %s. Error number %s.", filename, str(self.numberOfErrors), exc_info=True)
         if self.numberOfErrors == int(Config.get('renamer.max.number.of.errors')):
             raise ValueError('Too many errors. Something is wrong. Aborting execution.')

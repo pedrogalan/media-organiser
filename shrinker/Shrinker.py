@@ -29,6 +29,7 @@ class Shrinker:
 
     def __getFilenamesToShrink(self):
         extensions = tuple(Config.get('shrinker.path.sources.file.extensions').split(','))
+        print extensions
         return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, Config.get('shrinker.max.number.of.files'))
 
     def __shrink(self, filename):

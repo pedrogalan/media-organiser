@@ -7,6 +7,7 @@ class UnknownShrinker:
         self.destinationFilename = self.__buildDestinationFilename(file, destinationPath)
 
     def shrink(self):
+        # TODO
         print('Shrinking unknown format:\nFrom: ' + self.sourceFilename + '\nTo  : ' + self.destinationFilename)
 
     def __buildDestinationFilename(self, file, destinationPath):

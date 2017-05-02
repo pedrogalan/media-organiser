@@ -22,13 +22,17 @@ class FileUtils:
         return matches
 
     @staticmethod
-    def cp(media, destinationPath):
-        destinationFile = FileUtils.__getDestinationFilename(destinationPath, media)
-        FileUtils.__createDestinationDirectory(destinationFile)
-        copyfile(media.sourceFile, destinationFile)
+    def copy(sourceFilename, destinationFilename):
+        FileUtils.__createDestinationDirectory(destinationFilename)
+        copyfile(sourceFilename, destinationFilename)
 
     @staticmethod
-    def mv(media, destinationPath):
+    def move(sourceFilename, destinationFilename):
+        FileUtils.__createDestinationDirectory(destinationFilename)
+        copyfile(sourceFilename, destinationFilename)
+
+    @staticmethod
+    def rename(media, destinationPath):
         destinationFile = FileUtils.__getDestinationFilename(destinationPath, media)
         FileUtils.__createDestinationDirectory(destinationFile)
         move(media.sourceFile, destinationFile)
