@@ -1,11 +1,17 @@
+import sys
+sys.path.append('../log')
+from log.Logging import logging
 from fnmatch import filter
 from os.path import isfile
 from os.path import join
 from os.path import exists
 from os.path import dirname
+from os.path import isdir
 from os import walk
 from os import remove
+from os import rmdir
 from os import makedirs
+from os import listdir
 from shutil import copyfile
 from shutil import move
 
@@ -50,6 +56,33 @@ class FileUtils:
             except OSError as exc:
                 if exc.errno != errno.EEXIST:
                     raise
+
+    @staticmethod
+    def removeDir(path):
+        if not isdir(path):
+            print path + ' is not a dir.'
+            return
+        entries = listdir(path)
+        if len(entries):
+            for entry in entries:
+                fullpath = join(path, entry)
+                if isdir(fullpath):
+                    FileUtils.removeDir(fullpath)
+        entries = listdir(path)
+        if len(entries) == 0:
+            rmdir(path)
+
+    @staticmethod
+    def deleteDirIfEmpty(dir):
+        try:
+            if not listdir(dir):
+                print "Empty"
+            else:
+                print "Full"
+
+            rmdir(dir)
+        except OSError as ex:
+            logging.error('Dir %s cannot be deleted.', dir, exc_info=True)
 
     @staticmethod
     def __getDestinationFilename(destinationPath, media):

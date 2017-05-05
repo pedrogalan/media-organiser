@@ -23,6 +23,7 @@ class Classifier:
                 self.__classify(filename)
             except:
                 self.__handleError(filename)
+        FileUtils.removeDir(self.sourcePath)
 
     def __getFilenamesToClassify(self):
         extensions = tuple(Config.get('classifier.path.sources.file.extensions').split(','))

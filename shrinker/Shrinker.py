@@ -26,6 +26,7 @@ class Shrinker:
                 self.__shrink(filename)
             except:
                 self.__handleError(filename)
+        FileUtils.removeDir(self.sourcePath)
 
     def __getFilenamesToShrink(self):
         extensions = tuple(Config.get('shrinker.path.sources.file.extensions').split(','))
