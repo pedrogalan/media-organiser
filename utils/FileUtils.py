@@ -60,7 +60,6 @@ class FileUtils:
     @staticmethod
     def removeDir(path):
         if not isdir(path):
-            print path + ' is not a dir.'
             return
         entries = listdir(path)
         if len(entries):
@@ -71,18 +70,6 @@ class FileUtils:
         entries = listdir(path)
         if len(entries) == 0:
             rmdir(path)
-
-    @staticmethod
-    def deleteDirIfEmpty(dir):
-        try:
-            if not listdir(dir):
-                print "Empty"
-            else:
-                print "Full"
-
-            rmdir(dir)
-        except OSError as ex:
-            logging.error('Dir %s cannot be deleted.', dir, exc_info=True)
 
     @staticmethod
     def __getDestinationFilename(destinationPath, media):
