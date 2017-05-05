@@ -16,6 +16,7 @@ def loadProperties():
     return config
 
 def createDefaultProperties():
+    # TODO Complete when all parameters work
     file = open(getConfigFileName(), "w")
     file.write('[all]\n\n')
     file.write('renamer.path.sources=/change/me,/also/change/me\n')
