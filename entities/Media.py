@@ -42,7 +42,7 @@ class Media:
 
     def __getDateFromMetaInfo(self):
         date = self.__getCreateDate(self.metainfo)
-        if date is None:
+        if date is None or date == '0000:00:00 00:00:00':
             date = self.__getFileModificationDate(self.metainfo)
 
         return MediaDate(date)
