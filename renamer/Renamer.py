@@ -25,7 +25,8 @@ class Renamer:
 
     def __getFilenamesToRename(self):
         extensions = tuple(Config.get('renamer.path.sources.file.extensions').split(','))
-        return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, Config.get('renamer.max.number.of.files'))
+        maxNumberOfFiles = int(Config.get('renamer.max.number.of.files'))
+        return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
 
     def __rename(self, filename):
         media = Media(filename)
