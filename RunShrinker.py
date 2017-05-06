@@ -3,6 +3,7 @@
 from log.Logging import logging
 from shrinker.Shrinker import Shrinker
 from config.Config import Config
+from utils import Locker
 
 
 def __shrink():

@@ -3,6 +3,7 @@
 from log.Logging import logging
 from classifier.Classifier import Classifier
 from config.Config import Config
+from utils import Locker
 
 def __classify():
     for pathSource in Config.get('classifier.path.sources').split(','):
