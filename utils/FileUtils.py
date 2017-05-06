@@ -87,4 +87,5 @@ class FileUtils:
         elif media.isVideo():
             return join('Videos', subdir)
         else:
+            logging.error('The media type of %s is unknown.', media.filename)
             return join('Unknown', subdir)
