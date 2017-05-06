@@ -117,4 +117,5 @@ I did this just for fun. There are many things that could be improved and there 
 * Remove code duplication: there is some code duplication that I would like to get rid of. In essence, the services are very similar, hence there is room for improve the reusability.
 * I haven't tested any of this on Windows. I have a MacBook and a couple of Linux boxes where the scripts work well.
 * Improve the documentation, perhaps adding some diagrams.
+* Add statistics of processed files, etc.
 * Add more points to this list.
