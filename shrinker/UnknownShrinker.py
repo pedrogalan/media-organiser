@@ -1,4 +1,7 @@
 import os.path
+import sys
+sys.path.append('../log')
+from log.Logging import logging
 
 class UnknownShrinker:
 
@@ -7,7 +10,7 @@ class UnknownShrinker:
         self.destinationFilename = self.__buildDestinationFilename(file, destinationPath)
 
     def shrink(self):
-        FileUtils.move(self.sourceFilename, self.destinationFilename)
+        logging.error('File %s cannot be shrinked because its type is unknown.', self.sourceFilename)
 
     def __buildDestinationFilename(self, file, destinationPath):
         return os.path.join(destinationPath, file.partialPath, file.name)
