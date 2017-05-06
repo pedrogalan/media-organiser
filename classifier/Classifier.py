@@ -12,10 +12,11 @@ from glob import glob
 
 class Classifier:
 
-    def __init__(self, sourcePath):
+    def __init__(self, sourcePath, mediaType):
         self.numberOfErrors = 0
         self.sourcePath = sourcePath
         self.destinationPath = Config.get('classifier.path.destination')
+        self.mediaType = mediaType
 
     def run(self):
         for filename in self.__getFilenamesToClassify():
@@ -26,8 +27,9 @@ class Classifier:
         FileUtils.removeDir(self.sourcePath)
 
     def __getFilenamesToClassify(self):
-        extensions = tuple(Config.get('classifier.path.sources.file.extensions').split(','))
-        return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, Config.get('classifier.max.number.of.files'))
+        extensions = tuple(Config.getFromSection(self.mediaType, 'classifier.path.sources.file.extensions').split(','))
+        maxNumberOfFiles = int(Config.getFromSection(self.mediaType, 'classifier.max.number.of.files'))
+        return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
 
     def __classify(self, filename):
         file = File(filename)

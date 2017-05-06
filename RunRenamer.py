@@ -6,6 +6,7 @@ from config.Config import Config
 
 for pathSource in Config.get('renamer.path.sources').split(','):
     try:
-        Renamer(pathSource).run()
+        Renamer(pathSource, 'Pictures').run()
+        Renamer(pathSource, 'Videos').run()
     except ValueError as err:
         logging.error(str(err))

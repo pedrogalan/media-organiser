@@ -45,6 +45,13 @@ class Config:
     @staticmethod
     def get(name):
         try:
-            return Config.__properties.get('all', name)
+            return Config.getFromSection('All', name)
         except:
             logging.error("Configuration property %s not found in %s", name, getConfigFileName())
+
+    @staticmethod
+    def getFromSection(section, name):
+        try:
+            return Config.__properties.get(section, name)
+        except:
+            return Config.get(name)

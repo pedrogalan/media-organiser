@@ -15,10 +15,11 @@ from glob import glob
 
 class Shrinker:
 
-    def __init__(self, sourcePath):
+    def __init__(self, sourcePath, mediaType):
         self.numberOfErrors = 0
         self.sourcePath = sourcePath
         self.destinationPath = Config.get('shrinker.path.destination')
+        self.mediaType = mediaType
 
     def run(self):
         for filename in self.__getFilenamesToShrink():
@@ -29,8 +30,9 @@ class Shrinker:
         FileUtils.removeDir(self.sourcePath)
 
     def __getFilenamesToShrink(self):
-        extensions = tuple(Config.get('shrinker.path.sources.file.extensions').split(','))
-        return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, Config.get('shrinker.max.number.of.files'))
+        extensions = tuple(Config.getFromSection(self.mediaType, 'shrinker.path.sources.file.extensions').split(','))
+        maxNumberOfFiles = int(Config.getFromSection(self.mediaType, 'shrinker.max.number.of.files'))
+        return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
 
     def __shrink(self, filename):
         media = Media(filename)

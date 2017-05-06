@@ -11,10 +11,11 @@ from glob import glob
 
 class Renamer:
 
-    def __init__(self, sourcePath):
+    def __init__(self, sourcePath, mediaType):
         self.numberOfErrors = 0
         self.sourcePath = sourcePath
         self.destinationPath = Config.get('renamer.path.destination')
+        self.mediaType = mediaType
 
     def run(self):
         for filename in self.__getFilenamesToRename():
@@ -24,8 +25,8 @@ class Renamer:
                 self.__handleError(filename)
 
     def __getFilenamesToRename(self):
-        extensions = tuple(Config.get('renamer.path.sources.file.extensions').split(','))
-        maxNumberOfFiles = int(Config.get('renamer.max.number.of.files'))
+        extensions = tuple(Config.getFromSection(self.mediaType, 'renamer.path.sources.file.extensions').split(','))
+        maxNumberOfFiles = int(Config.getFromSection(self.mediaType, 'renamer.max.number.of.files'))
         return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
 
     def __rename(self, filename):
