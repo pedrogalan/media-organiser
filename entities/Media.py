@@ -22,7 +22,7 @@ class Media:
         return self.getNewFileName(self.counter)
 
     def getNewFileName(self, counter):
-        return self.createDate.toFileName() + '_' + str(counter).zfill(3) + '.' + self.fileext
+        return self.createDate.toFileName() + '_' + str(counter).zfill(6) + '.' + self.fileext
 
     def isPicture(self):
         return self.type == 'image'
