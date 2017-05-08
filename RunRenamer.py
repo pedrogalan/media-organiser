@@ -13,8 +13,8 @@ def __rename():
         except ValueError as err:
             logging.error(str(err))
 
-if Locker.startService('renamer'):
+if Locker.startService():
     __rename()
-    Locker.stopService('renamer')
+    Locker.stopService()
 else:
     logging.error("The renamer could not start because there was a locker file.")

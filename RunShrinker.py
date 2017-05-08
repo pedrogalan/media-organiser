@@ -14,8 +14,8 @@ def __shrink():
         except ValueError as err:
             logging.error(str(err))
 
-if Locker.startService('shrinker'):
+if Locker.startService():
     __shrink()
-    Locker.stopService('shrinker')
+    Locker.stopService()
 else:
     logging.error("The shrinker could not start because there was a locker file.")

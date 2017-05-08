@@ -1,15 +1,15 @@
 import tempfile
 import os
 
-def startService(serviceName):
-    fullPath = __makeLockerPath(serviceName)
+def startService():
+    fullPath = __makeLockerPath('media-organiser')
     if os.path.isfile(fullPath):
         return False
     open(fullPath, 'a').close()
     return True
 
-def stopService(serviceName):
-    fullPath = __makeLockerPath(serviceName)
+def stopService():
+    fullPath = __makeLockerPath('media-organiser')
     try:
         os.remove(fullPath)
     except:

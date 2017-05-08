@@ -13,8 +13,8 @@ def __classify():
         except ValueError as err:
             logging.error(str(err))
 
-if Locker.startService('classifier'):
+if Locker.startService():
     __classify()
-    Locker.stopService('classifier')
+    Locker.stopService()
 else:
     logging.error("The classifier could not start because there was a locker file.")
