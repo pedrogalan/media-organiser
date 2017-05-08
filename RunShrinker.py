@@ -5,6 +5,7 @@ from shrinker.Shrinker import Shrinker
 from config.Config import Config
 from utils import Locker
 
+# TODO Remove the old Media and FileUtils and rename the new ones to the old names
 
 def __shrink():
     for pathSource in Config.get('shrinker.path.sources').split(','):
