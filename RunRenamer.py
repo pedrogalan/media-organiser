@@ -10,7 +10,7 @@ def __rename():
         try:
             Renamer(pathSource, 'Pictures').run()
             Renamer(pathSource, 'Videos').run()
-        except ValueError as err:
+        except Exception as err:
             logging.error(str(err))
 
 if Locker.startService():

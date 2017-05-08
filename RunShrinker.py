@@ -11,7 +11,7 @@ def __shrink():
         try:
             Shrinker(pathSource, 'Pictures').run()
             Shrinker(pathSource, 'Videos').run()
-        except ValueError as err:
+        except Exception as err:
             logging.error(str(err))
 
 if Locker.startService():

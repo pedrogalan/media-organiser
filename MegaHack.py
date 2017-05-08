@@ -58,7 +58,6 @@ extensions = tuple(Config.getFromSection('Pictures', 'renamer.path.sources.file.
 files = FileUtils.findFilesRecursivelly('Media/samples', extensions, 10)
 
 for file in files:
-    # print os.path.basename(file)
     try:
         DateName.fromName(file).rename()
     except:

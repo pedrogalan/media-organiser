@@ -9,6 +9,7 @@ from os.path import dirname
 from os import remove
 from os import makedirs
 from os import listdir
+from os import rmdir
 from os import walk
 from shutil import copyfile
 from shutil import move
@@ -66,24 +67,7 @@ class NewFileUtils:
             rmdir(path)
 
     @staticmethod
-    def __prepareDestinationDirectory(media, destinationPath):
-        destinationFile = NewFileUtils.__getDestinationFilename(destinationPath, media)
-        NewFileUtils.createDestinationDirectory(destinationFile)
-        return destinationFile
-
-    @staticmethod
-    def __getDestinationFilename(destinationPath, media):
-        destinationSubDirectory = NewFileUtils.__getDestinationSubdirectory(media)
-        fullDestinationPath = join(destinationPath, destinationSubDirectory)
-
-        destinationFile = join(fullDestinationPath, media.getNextNewFileName())
-        while isfile(destinationFile):
-            destinationFile = join(fullDestinationPath, media.getNextNewFileName())
-
-        return destinationFile
-
-    @staticmethod
-    def __getDestinationSubdirectory(media):
+    def getDestinationSubdirectory(media):
         year = media.getCreationYear()
         if media.isPicture():
             return join('Pictures', year)
@@ -92,3 +76,20 @@ class NewFileUtils:
         else:
             logging.error('The media type of %s is unknown.', media.fullPath)
             return join('Unknown', subdir)
+
+    @staticmethod
+    def __prepareDestinationDirectory(media, destinationPath):
+        destinationFile = NewFileUtils.__getDestinationFilename(destinationPath, media)
+        NewFileUtils.createDestinationDirectory(destinationFile)
+        return destinationFile
+
+    @staticmethod
+    def __getDestinationFilename(destinationPath, media):
+        destinationSubDirectory = NewFileUtils.getDestinationSubdirectory(media)
+        fullDestinationPath = join(destinationPath, destinationSubDirectory)
+
+        destinationFile = join(fullDestinationPath, media.getNextNewFileName())
+        while isfile(destinationFile):
+            destinationFile = join(fullDestinationPath, media.getNextNewFileName())
+
+        return destinationFile

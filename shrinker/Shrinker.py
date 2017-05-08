@@ -5,9 +5,9 @@ sys.path.append('../entities')
 sys.path.append('../utils')
 from config.Config import Config
 from log.Logging import logging
-from entities.Media import Media
-from entities.File import File
-from utils.FileUtils import FileUtils
+from entities.NewMedia import NewMedia
+from entities.MediaBuilder import MediaBuilder
+from utils.NewFileUtils import NewFileUtils
 from VideoShrinker import VideoShrinker
 from PictureShrinker import PictureShrinker
 from UnknownShrinker import UnknownShrinker
@@ -27,21 +27,21 @@ class Shrinker:
                 self.__shrink(filename)
             except:
                 self.__handleError(filename)
-        FileUtils.removeDir(self.sourcePath)
+        NewFileUtils.removeDir(self.sourcePath)
 
     def __getFilenamesToShrink(self):
         extensions = tuple(Config.getFromSection(self.mediaType, 'shrinker.path.sources.file.extensions').split(','))
         maxNumberOfFiles = int(Config.getFromSection(self.mediaType, 'shrinker.max.number.of.files'))
-        return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
+        return NewFileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
 
     def __shrink(self, filename):
-        media = Media(filename)
+        media = MediaBuilder.build(filename)
         if media.isVideo():
-            VideoShrinker(File(filename), self.destinationPath).shrink()
+            VideoShrinker(filename, self.destinationPath).shrink()
         elif media.isPicture():
-            PictureShrinker(File(filename), self.destinationPath).shrink()
+            PictureShrinker(filename, self.destinationPath).shrink()
         else:
-            UnknownShrinker(File(filename), self.destinationPath).shrink()
+            UnknownShrinker(filename, self.destinationPath).shrink()
 
     def __handleError(self, filename):
         self.numberOfErrors = self.numberOfErrors + 1
