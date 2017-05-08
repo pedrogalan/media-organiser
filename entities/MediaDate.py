@@ -13,6 +13,10 @@ class MediaDate:
     def getYear(self):
         return self.date.strftime('%Y')
 
+    def __parse(self, stringDate):
+        normalisedDate = self.__normaliseStringDate(stringDate)
+        return datetime.strptime(normalisedDate, self.DATETIME_FORMAT)
+
     def __normaliseStringDate(self, stringDate):
         if self.__hasTime(stringDate):
             normalisedDate = stringDate
@@ -25,7 +29,3 @@ class MediaDate:
 
     def __hasTime(self, stringDate):
         return " " in stringDate
-
-    def __parse(self, stringDate):
-        normalisedDate = self.__normaliseStringDate(stringDate)
-        return datetime.strptime(normalisedDate, self.DATETIME_FORMAT)
