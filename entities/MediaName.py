@@ -1,9 +1,9 @@
 class MediaName:
     """Represents the name of a media which consists of a datetime plus a counter to prevent collisions."""
 
-    def __init__(self, mediaDate, counter):
+    def __init__(self, mediaDate):
         self.mediaDate = mediaDate
-        self.counter = counter
+        self.counter = 0
 
     def getName(self):
         return self.mediaDate.toFileName() + '_' + str(self.counter).zfill(6)

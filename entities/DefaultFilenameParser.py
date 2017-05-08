@@ -11,7 +11,7 @@ class DefaultFilenameParser:
         name = DefaultFilenameParser.__removeFileExtension(filename)
         dateFromName = DefaultFilenameParser.__removeCounter(name)
         standardMetadataDateFormat = DefaultFilenameParser.__convertToMetadataFormat(dateFromName)
-        return MediaName(MediaDate(standardMetadataDateFormat), 1)
+        return MediaName(MediaDate(standardMetadataDateFormat))
 
     @staticmethod
     def __removeFileExtension(filename):

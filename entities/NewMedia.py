@@ -15,10 +15,10 @@ class NewMedia:
         return self.mediaName.getNextName() + '.' + self.fileext
 
     def isPicture(self):
-        return self.type == 'image'
+        return self.mediaType == 'image'
 
     def isVideo(self):
-        return self.type == 'video'
+        return self.mediaType == 'video'
 
     def getCreationYear(self):
         return self.mediaName.getName()[0:4]

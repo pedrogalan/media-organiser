@@ -35,7 +35,7 @@ class MediaBuilderFromMetaInfo:
 
     def __getMediaNameFromMetaInfo(self):
         mediaDate = self.__getDateFromMetaInfo()
-        return MediaName(mediaDate, 1)
+        return MediaName(mediaDate)
 
     def __getDateFromMetaInfo(self):
         date = self.__getCreateDateFromMetaInfo()
