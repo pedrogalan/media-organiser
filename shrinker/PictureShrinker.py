@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../utils')
-from utils.NewFileUtils import NewFileUtils
+from utils.FileUtils import FileUtils
 
 class PictureShrinker:
 
@@ -9,4 +9,4 @@ class PictureShrinker:
         self.destinationPath = destinationPath
 
     def shrink(self):
-        NewFileUtils.move(self.sourceFilename, self.destinationPath)
+        FileUtils.move(self.sourceFilename, self.destinationPath)

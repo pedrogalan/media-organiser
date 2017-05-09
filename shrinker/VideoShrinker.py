@@ -4,7 +4,7 @@ sys.path.append('../config')
 sys.path.append('../utils')
 sys.path.append('../entities')
 from config.Config import Config
-from utils.NewFileUtils import NewFileUtils
+from utils.FileUtils import FileUtils
 from entities.MediaBuilder import MediaBuilder
 from utils.HandBrakeAdapter import HandBrakeAdapter
 
@@ -15,13 +15,13 @@ class VideoShrinker:
         self.destinationFilename = self.__buildDestinationFilename(filename, destinationPath)
 
     def shrink(self):
-        NewFileUtils.createDestinationDirectory(self.destinationFilename)
+        FileUtils.createDestinationDirectory(self.destinationFilename)
         HandBrakeAdapter.run(self.sourceFilename, self.destinationFilename)
-        NewFileUtils.delete(self.sourceFilename)
+        FileUtils.delete(self.sourceFilename)
 
     def __buildDestinationFilename(self, filename, destinationPath):
         media = MediaBuilder.build(filename)
-        partialPath = NewFileUtils.getDestinationSubdirectory(media)
+        partialPath = FileUtils.getDestinationSubdirectory(media)
         filePath = os.path.join(destinationPath, partialPath, media.getNextNewFileName())
         filePathWithoutExtension = os.path.splitext(filePath)[0]
         newExtension = '.' + Config.get('handbrake.destination.extension')

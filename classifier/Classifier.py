@@ -6,7 +6,7 @@ sys.path.append('../entities')
 sys.path.append('../utils')
 from config.Config import Config
 from log.Logging import logging
-from utils.NewFileUtils import NewFileUtils
+from utils.FileUtils import FileUtils
 
 class Classifier:
 
@@ -22,15 +22,15 @@ class Classifier:
                 self.__classify(filename)
             except:
                 self.__handleError(filename)
-        NewFileUtils.removeDir(self.sourcePath)
+        FileUtils.removeDir(self.sourcePath)
 
     def __getFilenamesToClassify(self):
         extensions = tuple(Config.getFromSection(self.mediaType, 'classifier.path.sources.file.extensions').split(','))
         maxNumberOfFiles = int(Config.getFromSection(self.mediaType, 'classifier.max.number.of.files'))
-        return NewFileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
+        return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
 
     def __classify(self, filename):
-        NewFileUtils.move(filename, self.destinationPath)
+        FileUtils.move(filename, self.destinationPath)
 
     def __handleError(self, filename):
         self.numberOfErrors = self.numberOfErrors + 1

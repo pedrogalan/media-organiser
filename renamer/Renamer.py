@@ -5,7 +5,7 @@ sys.path.append('../entities')
 sys.path.append('../utils')
 from config.Config import Config
 from log.Logging import logging
-from utils.NewFileUtils import NewFileUtils
+from utils.FileUtils import FileUtils
 from glob import glob
 
 class Renamer:
@@ -26,10 +26,10 @@ class Renamer:
     def __getFilenamesToRename(self):
         extensions = tuple(Config.getFromSection(self.mediaType, 'renamer.path.sources.file.extensions').split(','))
         maxNumberOfFiles = int(Config.getFromSection(self.mediaType, 'renamer.max.number.of.files'))
-        return NewFileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
+        return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
 
     def __rename(self, filename):
-        NewFileUtils.move(filename, self.destinationPath)
+        FileUtils.move(filename, self.destinationPath)
 
     def __handleError(self, filename):
         self.numberOfErrors = self.numberOfErrors + 1

@@ -5,7 +5,7 @@ from re import compile
 from os.path import split
 from subprocess import Popen
 from subprocess import PIPE
-from NewMedia import NewMedia
+from Media import Media
 from MediaDate import MediaDate
 from MediaName import MediaName
 
@@ -20,7 +20,7 @@ class MediaBuilderFromMetaInfo:
         fileext = self.__getExtension()
         mediaName = self.__getMediaNameFromMetaInfo()
         mediaType = self.__getMimeTypeFromMetaInfo()
-        return NewMedia(self.sourceFile, path, filename, fileext, mediaName, mediaType)
+        return Media(self.sourceFile, path, filename, fileext, mediaName, mediaType)
 
     def __getMetaInformation(self):
         result = Popen(['exiftool', '-s', self.sourceFile], stdout=PIPE)

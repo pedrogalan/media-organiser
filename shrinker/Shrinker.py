@@ -5,9 +5,9 @@ sys.path.append('../entities')
 sys.path.append('../utils')
 from config.Config import Config
 from log.Logging import logging
-from entities.NewMedia import NewMedia
+from entities.Media import Media
 from entities.MediaBuilder import MediaBuilder
-from utils.NewFileUtils import NewFileUtils
+from utils.FileUtils import FileUtils
 from VideoShrinker import VideoShrinker
 from PictureShrinker import PictureShrinker
 from UnknownShrinker import UnknownShrinker
@@ -27,12 +27,12 @@ class Shrinker:
                 self.__shrink(filename)
             except:
                 self.__handleError(filename)
-        NewFileUtils.removeDir(self.sourcePath)
+        FileUtils.removeDir(self.sourcePath)
 
     def __getFilenamesToShrink(self):
         extensions = tuple(Config.getFromSection(self.mediaType, 'shrinker.path.sources.file.extensions').split(','))
         maxNumberOfFiles = int(Config.getFromSection(self.mediaType, 'shrinker.max.number.of.files'))
-        return NewFileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
+        return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
 
     def __shrink(self, filename):
         media = MediaBuilder.build(filename)
