@@ -10,11 +10,15 @@ class MotorolaFilenameParser:
         """This parser assumes that all fields are mandatory. If there is any field missing, it will fail."""
         dateFromFilename = MotorolaFilenameParser.__extractDate(filename)
         standardMetadataDateFormat = MotorolaFilenameParser.__convertToMetadataFormat(dateFromFilename)
+        print "Motorola: " + standardMetadataDateFormat
         return MediaName(MediaDate(standardMetadataDateFormat))
 
     @staticmethod
     def __extractDate(name):
-        return name.replace('-', '_').split('_')[1]
+        date = name.replace('-', '_').split('_')[1]
+        if len(date) != 8:
+            raise ValueError('File name ' + date + ' cannot be parsed.')
+        return date
 
     @staticmethod
     def __convertToMetadataFormat(dateFromName):

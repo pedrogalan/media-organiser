@@ -11,6 +11,7 @@ class DefaultFilenameParser:
         name = DefaultFilenameParser.__removeFileExtension(filename)
         dateFromName = DefaultFilenameParser.__removeCounter(name)
         standardMetadataDateFormat = DefaultFilenameParser.__convertToMetadataFormat(dateFromName)
+        print standardMetadataDateFormat
         return MediaName(MediaDate(standardMetadataDateFormat))
 
     @staticmethod
@@ -24,4 +25,6 @@ class DefaultFilenameParser:
 
     @staticmethod
     def __convertToMetadataFormat(dateFromName):
+        if len(dateFromName) < 10 or len(dateFromName) > 18:
+            raise ValueError('File name ' + dateFromName + ' cannot be parsed.')
         return dateFromName.replace('-', ':').replace('.', ':').replace('_', ' ')

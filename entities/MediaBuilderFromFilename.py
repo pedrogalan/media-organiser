@@ -22,7 +22,8 @@ class MediaBuilderFromFilename:
         return filename.split('.')[-1].lower()
 
     def __parseFilename(self, filename):
-        parsers = [SamsungFilenameParser, DefaultFilenameParser]
+        print "Parsing..."
+        parsers = [SamsungFilenameParser, MotorolaFilenameParser, DefaultFilenameParser]
         for parser in parsers:
             try:
                 return parser.parse(filename)
