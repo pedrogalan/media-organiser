@@ -11,7 +11,6 @@ class SamsungFilenameParser:
         name = SamsungFilenameParser.__removeFileExtension(filename)
         dateFromName = SamsungFilenameParser.__removeCounter(name)
         standardMetadataDateFormat = SamsungFilenameParser.__convertToMetadataFormat(dateFromName)
-        print "Samsung: " + standardMetadataDateFormat
         return MediaName(MediaDate(standardMetadataDateFormat))
 
     @staticmethod

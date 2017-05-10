@@ -11,7 +11,6 @@ class DefaultFilenameParser:
         name = DefaultFilenameParser.__removeFileExtension(filename)
         dateFromName = DefaultFilenameParser.__removeCounter(name)
         standardMetadataDateFormat = DefaultFilenameParser.__convertToMetadataFormat(dateFromName)
-        print standardMetadataDateFormat
         return MediaName(MediaDate(standardMetadataDateFormat))
 
     @staticmethod
