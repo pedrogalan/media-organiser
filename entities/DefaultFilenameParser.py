@@ -24,6 +24,6 @@ class DefaultFilenameParser:
 
     @staticmethod
     def __convertToMetadataFormat(dateFromName):
-        if len(dateFromName) < 10 or len(dateFromName) > 18:
+        if len(dateFromName) < 10 or len(dateFromName) > 19:
             raise ValueError('File name ' + dateFromName + ' cannot be parsed.')
         return dateFromName.replace('-', ':').replace('.', ':').replace('_', ' ')
