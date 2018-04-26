@@ -38,13 +38,18 @@ class MediaBuilderFromMetaInfo:
         return MediaName(mediaDate)
 
     def __getDateFromMetaInfo(self):
-        date = self.__getCreateDateFromMetaInfo()
+        date = self.__getDateTimeOriginalFromMetaInfo()
         if date is None or date == '0000:00:00 00:00:00':
-            date = self.__getFileModificationDateFromMetaInfo()
+            date = self.__getCreateDateFromMetaInfo()
+            if date is None or date == '0000:00:00 00:00:00':
+                date = self.__getFileModificationDateFromMetaInfo()
         return MediaDate(date)
 
     def __getCreateDateFromMetaInfo(self):
         return self.__getMetaInfoValue(compile('^CreateDate.*'))
+
+    def __getDateTimeOriginalFromMetaInfo(self):
+        return self.__getMetaInfoValue(compile('^DateTimeOriginal.*'))
 
     def __getFileModificationDateFromMetaInfo(self):
         return self.__getMetaInfoValue(compile('^FileModifyDate.*'))
