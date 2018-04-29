@@ -1,12 +1,12 @@
 class Media:
 
-    def __init__(self, fullPath, path, filename, fileext, mediaName, mediaType):
+    def __init__(self, origin, fullPath, fileext, mediaName, mediaType, mediaDate):
+        self.origin = origin
         self.fullPath = fullPath
-        self.path = path # TODO delete me?
-        self.filename = filename # TODO delete me?
         self.fileext = fileext
         self.mediaType = mediaType
         self.mediaName = mediaName
+        self.mediaDate = mediaDate
 
     def getNewFileName(self):
         return self.mediaName.getName() + '.' + self.fileext
@@ -25,8 +25,10 @@ class Media:
 
     def __str__(self):
         return 'Path: ' + self.fullPath \
+            + '\nOrigin: ' + self.origin \
             + '\nFileext: ' + self.fileext \
             + '\nMedia type: ' + self.mediaType \
             + '\nCreation year: ' + self.getCreationYear() \
+            + '\nMedia date: ' + self.mediaDate.toFileName() \
             + '\nMedia name: ' + self.getNewFileName() \
             + '\n'

@@ -16,11 +16,11 @@ class MediaBuilderFromMetaInfo:
         self.metainfo = self.__getMetaInformation()
 
     def build(self):
-        path, filename = split(self.sourceFile)
         fileext = self.__getExtension()
         mediaName = self.__getMediaNameFromMetaInfo()
         mediaType = self.__getMimeTypeFromMetaInfo()
-        return Media(self.sourceFile, path, filename, fileext, mediaName, mediaType)
+        mediaDate = self.__getDateFromMetaInfo()
+        return Media('METADATA', self.sourceFile, fileext, mediaName, mediaType, mediaDate)
 
     def __getMetaInformation(self):
         result = Popen(['exiftool', '-s', self.sourceFile], stdout=PIPE)

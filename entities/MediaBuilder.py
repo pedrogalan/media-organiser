@@ -10,9 +10,17 @@ class MediaBuilder:
     @staticmethod
     def build(filename):
         builders = [MediaBuilderFromFilename(filename), MediaBuilderFromMetaInfo(filename)]
+        result = list()
         for builder in builders:
             try:
-                return builder.build()
+                result.append(builder.build())
             except:
                 pass
-        raise ValueError('Could not build media object from file ' + filename + '.')
+        if len(result) == 0:
+            raise ValueError('Could not build media object from file ' + filename + '.')
+
+        return MediaBuilder.chooseRightMedia(result)
+
+    @staticmethod
+    def chooseRightMedia(mediaList):
+        return mediaList[0]
