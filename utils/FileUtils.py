@@ -2,6 +2,7 @@ import sys
 sys.path.append('../entities')
 from entities.MediaBuilder import MediaBuilder
 from os.path import join
+from os.path import basename
 from os.path import isfile
 from os.path import isdir
 from os.path import exists
@@ -28,6 +29,11 @@ class FileUtils:
         return matches
 
     @staticmethod
+    def mv(sourceFilename, destinationPath):
+        FileUtils.createDestinationDirectory(destinationPath)
+        move(sourceFilename, destinationPath + '/')
+
+    @staticmethod
     def copy(sourceFilename, destinationPath):
         media = MediaBuilder.build(sourceFilename)
         destinationFile = FileUtils.__prepareDestinationDirectory(media, destinationPath)
@@ -45,7 +51,12 @@ class FileUtils:
 
     @staticmethod
     def createDestinationDirectory(fullPath):
-        if not exists(dirname(fullPath)):
+        dir = fullPath
+
+        if basename(fullPath):
+            dir = dirname(fullPath)
+
+        if not exists(dir):
             try:
                 makedirs(dirname(fullPath))
             except OSError as exc:
