@@ -18,7 +18,7 @@ class MediaBuilderFromFilename:
         fileext = self.__extractExtension(filename)
         mediaName = self.__parseFilename(filename)
         mediaType = MediaUtils.getMediaType(fileext)
-        mediaDate = self.__makeUpCreationDateFromFileName(filename)
+        mediaDate = self.__makeUpCreationDateFromFileName(mediaName)
         return Media('FILENAME', self.sourceFile, fileext, mediaName, mediaType, mediaDate)
 
     def __extractExtension(self, filename):
@@ -33,5 +33,5 @@ class MediaBuilderFromFilename:
                 pass
         raise ValueError('File name ' + filename + ' cannot be parsed.')
 
-    def __makeUpCreationDateFromFileName(self, filename):
-        return MediaDate("1960:01:01 00:00:00")
+    def __makeUpCreationDateFromFileName(self, mediaName):
+        return mediaName.getMediaDate()

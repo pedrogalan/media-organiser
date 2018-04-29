@@ -8,6 +8,9 @@ class MediaName:
     def getName(self):
         return self.mediaDate.toFileName() + '_' + str(self.counter).zfill(6)
 
+    def getMediaDate(self):
+        return self.mediaDate
+
     def getNextName(self):
         self.counter = self.counter + 1
         return self.getName()
