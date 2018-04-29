@@ -11,7 +11,7 @@ class SamsungFilenameParser:
         name = SamsungFilenameParser.__removeFileExtension(filename)
         dateFromName = SamsungFilenameParser.__removeCounter(name)
         standardMetadataDateFormat = SamsungFilenameParser.__convertToMetadataFormat(dateFromName)
-        return MediaName(MediaDate(standardMetadataDateFormat))
+        return MediaName(MediaDate(standardMetadataDateFormat, "Filename"))
 
     @staticmethod
     def __removeFileExtension(filename):

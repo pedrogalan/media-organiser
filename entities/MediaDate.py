@@ -4,11 +4,15 @@ from datetime import datetime
 class MediaDate:
     DATETIME_FORMAT = "%Y:%m:%d %H:%M:%S"
 
-    def __init__(self, stringDate):
+    def __init__(self, stringDate, origin):
         self.date = self.__parse(stringDate)
+        self.origin = origin
 
     def toFileName(self):
         return self.date.strftime('%Y-%m-%d_%H.%M.%S')
+
+    def getOrigin(self):
+        return self.origin
 
     def getYear(self):
         return self.date.strftime('%Y')
@@ -29,3 +33,6 @@ class MediaDate:
 
     def __hasTime(self, stringDate):
         return " " in stringDate
+
+    def __str__(self):
+        return self.date.strftime('%Y:%m:%d %H:%M:%S')
