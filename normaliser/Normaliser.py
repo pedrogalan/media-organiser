@@ -11,6 +11,7 @@ from glob import glob
 from entities.MediaBuilderFromMetaInfo import MediaBuilderFromMetaInfo
 from subprocess import Popen
 from subprocess import PIPE
+from subprocess import call
 
 class Normaliser:
 
@@ -43,7 +44,7 @@ class Normaliser:
     def __setDateTimeOriginal(self, media):
         creationDate = media.getCreationDate()
         filename = media.getFullPath()
-        Popen(['exiftool', '-overwrite_original', '-datetimeoriginal=' + str(creationDate), filename], stdout=PIPE)
+        call(['exiftool', '-overwrite_original', '-datetimeoriginal=' + str(creationDate), '-comment=DateTimeOriginal set by Media Organiser', filename])
 
     def __handleError(self, filename):
         self.numberOfErrors = self.numberOfErrors + 1
