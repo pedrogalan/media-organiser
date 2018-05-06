@@ -9,7 +9,7 @@ def __normalise():
     for pathSource in Config.get('normaliser.path.sources').split(','):
         try:
             Normaliser(pathSource, 'Pictures').run()
-            # Normaliser(pathSource, 'Videos').run()
+            Normaliser(pathSource, 'Videos').run()
         except Exception as err:
             logging.error(str(err))
 
