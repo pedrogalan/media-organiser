@@ -2,11 +2,11 @@ import sys
 sys.path.append('../utils')
 from utils.MediaUtils import MediaUtils
 from os.path import split
-from DefaultFilenameParser import DefaultFilenameParser
-from SamsungFilenameParser import SamsungFilenameParser
-from MotorolaFilenameParser import MotorolaFilenameParser
-from Media import Media
-from MediaDate import MediaDate
+from . DefaultFilenameParser import DefaultFilenameParser
+from . SamsungFilenameParser import SamsungFilenameParser
+from . MotorolaFilenameParser import MotorolaFilenameParser
+from . Media import Media
+from . MediaDate import MediaDate
 
 class MediaBuilderFromFilename:
 

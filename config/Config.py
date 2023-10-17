@@ -1,5 +1,5 @@
 from log.Logging import logging
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 from os.path import expanduser
 
 def getConfigFileName():
