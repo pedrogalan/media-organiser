@@ -1,5 +1,5 @@
-from MediaBuilderFromMetaInfo import MediaBuilderFromMetaInfo
-from MediaBuilderFromFilename import MediaBuilderFromFilename
+from . MediaBuilderFromMetaInfo import MediaBuilderFromMetaInfo
+from . MediaBuilderFromFilename import MediaBuilderFromFilename
 
 class MediaBuilder:
     """It will create a media object from a media file. It will iterate over multiple builders:

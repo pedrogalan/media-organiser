@@ -5,9 +5,9 @@ from re import compile
 from os.path import split
 from subprocess import Popen
 from subprocess import PIPE
-from Media import Media
-from MediaDate import MediaDate
-from MediaName import MediaName
+from . Media import Media
+from . MediaDate import MediaDate
+from . MediaName import MediaName
 
 class MediaBuilderFromMetaInfo:
 

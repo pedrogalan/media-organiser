@@ -22,6 +22,7 @@ class Renamer:
                 self.__rename(filename)
             except:
                 self.__handleError(filename)
+        FileUtils.removeDir(self.sourcePath)
 
     def __getFilenamesToRename(self):
         extensions = tuple(Config.getFromSection(self.mediaType, 'renamer.path.sources.file.extensions').split(','))

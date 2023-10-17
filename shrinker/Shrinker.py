@@ -8,9 +8,9 @@ from log.Logging import logging
 from entities.Media import Media
 from entities.MediaBuilder import MediaBuilder
 from utils.FileUtils import FileUtils
-from VideoShrinker import VideoShrinker
-from PictureShrinker import PictureShrinker
-from UnknownShrinker import UnknownShrinker
+from . VideoShrinker import VideoShrinker
+from . PictureShrinker import PictureShrinker
+from . UnknownShrinker import UnknownShrinker
 from glob import glob
 
 class Shrinker:
