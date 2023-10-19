@@ -4,6 +4,7 @@ from utils.MediaUtils import MediaUtils
 from os.path import split
 from . DefaultFilenameParser import DefaultFilenameParser
 from . SamsungFilenameParser import SamsungFilenameParser
+from . AppleFilenameParser import AppleFilenameParser
 from . MotorolaFilenameParser import MotorolaFilenameParser
 from . Media import Media
 from . MediaDate import MediaDate
@@ -25,7 +26,7 @@ class MediaBuilderFromFilename:
         return filename.split('.')[-1].lower()
 
     def __parseFilename(self, filename):
-        parsers = [SamsungFilenameParser, MotorolaFilenameParser, DefaultFilenameParser]
+        parsers = [AppleFilenameParser, SamsungFilenameParser, MotorolaFilenameParser, DefaultFilenameParser]
         for parser in parsers:
             try:
                 return parser.parse(filename)
