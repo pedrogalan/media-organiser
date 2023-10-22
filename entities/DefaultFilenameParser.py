@@ -9,14 +9,8 @@ class DefaultFilenameParser:
     def parse(filename):
         """This parser assumes that all fields are mandatory. If there is any field missing, it will fail."""
         name = DefaultFilenameParser.__removeFileExtension(filename)
-        print("Name")
-        print(name)
         dateFromName = DefaultFilenameParser.__removeCounter(name)
-        print("dateFromName")
-        print(dateFromName)
         standardMetadataDateFormat = DefaultFilenameParser.__convertToMetadataFormat(dateFromName)
-        print("standard")
-        print(standardMetadataDateFormat)
         return MediaName(MediaDate(standardMetadataDateFormat, "Filename"))
 
     @staticmethod
