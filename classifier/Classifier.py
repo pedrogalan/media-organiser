@@ -30,6 +30,7 @@ class Classifier:
         return FileUtils.findFilesRecursivelly(self.sourcePath, extensions, maxNumberOfFiles)
 
     def __classify(self, filename):
+        os.chmod(filename, 0o664)
         FileUtils.move(filename, self.destinationPath)
 
     def __handleError(self, filename):
