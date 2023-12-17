@@ -14,6 +14,7 @@ def __rename():
             logging.error(str(err))
 
 if Locker.startService():
+    logging.warning("Starting the renamer...")
     __rename()
     Locker.stopService()
 else:

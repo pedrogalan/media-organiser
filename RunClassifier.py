@@ -14,6 +14,7 @@ def __classify():
             logging.error(str(err))
 
 if Locker.startService():
+    logging.warning("Starting the classifier...")
     __classify()
     Locker.stopService()
 else:

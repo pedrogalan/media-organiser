@@ -14,6 +14,7 @@ def __normalise():
             logging.error(str(err))
 
 if Locker.startService():
+    logging.warning("Starting the normaliser...")
     __normalise()
     Locker.stopService()
 else:

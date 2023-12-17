@@ -16,6 +16,7 @@ def __shrink():
             logging.error(str(err))
 
 if Locker.startService():
+    logging.warning("Starting the shrinker...")
     __shrink()
     Locker.stopService()
 else:
