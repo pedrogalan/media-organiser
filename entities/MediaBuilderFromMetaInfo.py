@@ -62,8 +62,8 @@ class MediaBuilderFromMetaInfo:
 
     def __getMetaInfoValue(self, fieldname):
         for line in self.metainfo.splitlines():
-            if fieldname.match(line):
-                return line.split(': ')[-1];
+            if fieldname.match(line.decode('utf-8')):
+                return line.decode('utf-8').split(': ')[-1];
 
     def __getExtension(self):
         fileext = self.__getExtensionFromMetaInfo()
